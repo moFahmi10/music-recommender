@@ -1,0 +1,102 @@
+.song-list {
+    padding: 2rem;
+  }
+  
+  .page-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    text-align: left;
+    font-weight: bold;
+    padding: 1rem;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  td:last-child {
+    text-align: center;
+  }
+  
+  button {
+    background-color: #1db954;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #0c8b3d;
+  }
+  
+  .recommend{
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* add this line to make the list items display horizontally */
+  }
+  
+  nav li {
+    float: left;
+  }
+  
+  nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  nav li a:hover {
+    background-color: #111;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .page-item {
+    margin-right: 5px;
+  }
+
+  .page-link {
+    color: #0070f3;
+    cursor: pointer;
+  }
+
+  .page-link:hover {
+    text-decoration: underline;
+  }
+
+  .page-item.active button {
+    background-color: #0070f3;
+    color: #fff;
+  }
+  .pagination-nav{
+    background-color: white;
+    color: transparent;
+  }

@@ -1,0 +1,22 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+     
+   
+  }
+  
+  th {
+    text-align: left;
+    font-weight: bold;
+    padding: 1rem;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  td:last-child {
+    text-align: center;
+  }
