@@ -7,9 +7,9 @@ const RecommendedScreen = () =>{
   const [nbRecommendedSongs,setNbRecommendedSongs] = useState([]);
   const [rfRecommendedSongs,setRfRecommendedSongs] = useState([]);
   const [knnRecommendedSongs,setKnnRecommendedSongs] = useState([]);
-  const nbAccuracy = state.nb_accuracy;
-  const rfAccuracy = state.rf_accuracy;
-  const knnAccuracy = state.knn_accuracy;
+  const nbAccuracy = parseFloat(state.nb_accuracy.toFixed(2));
+  const rfAccuracy = parseFloat(state.rf_accuracy.toFixed(2));
+  const knnAccuracy = parseFloat(state.knn_accuracy.toFixed(2));
   const nbIdArray = state.nb_recommended_songs.map(song => song.song_id);
   const rfIdArray = state.rf_recommended_songs.map(song => song.song_id);
   const knnIdArray = state.knn_recommended_songs.map(song => song.song_id);
@@ -23,7 +23,10 @@ const RecommendedScreen = () =>{
     setRfRecommendedSongs(res2)
     const res3 = getSelectedSongs(knnIdArray)
     setKnnRecommendedSongs(res3)
-    setAllRecommendedSongs([{"list":res1,"accuracy":nbAccuracy},{"list":res2,"accuracy":rfAccuracy},{"list":res3,"accuracy":knnAccuracy}]);
+    setAllRecommendedSongs([{"list":res1,"accuracy":nbAccuracy,"algorithm":"Naive Bayes","id":"1"},
+    {"list":res2,"accuracy":rfAccuracy,"algorithm":"Random Forest","id":"2"},
+    {"list":res3,"accuracy":knnAccuracy,"algorithm":"KNN","id":"3"}
+  ]);
     
   }, []);
  
@@ -34,31 +37,32 @@ const RecommendedScreen = () =>{
         <div >
         <h1 className="welcome-message">Recommendations based on your history</h1>
 
-        {allRecommendedSongs.map(recommendedObj=>(
-            <table className="table">
-            <thead>
-              <tr>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Genre</th>
-                <th>Release Year</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recommendedObj.list.map(song => (
-                <tr key={song.song_id}>
-                  <td>{song.track_name}</td>
-                  <td>{song.artist_name}</td>
-                  <td>{song.genre}</td>
-                  <td>{song.release_date}</td>
-                </tr>
-              ))}
-            </tbody>
-              Accuracy:{recommendedObj.accuracy}
-          </table>
-
-        ))}
-      
+        <main class="st_viewport">
+{allRecommendedSongs.map(recommendedObj=>(
+  <div class="st_wrap_table" data-table_id={recommendedObj.id}>
+    <header class="st_table_header">
+      <h2>{recommendedObj.algorithm} with accuracy:{recommendedObj.accuracy}</h2>
+      <div class="st_row">
+        <div class="st_column _rank">Song</div>
+        <div class="st_column _name">Artist</div>
+        <div class="st_column _surname">Genre</div>
+        <div class="st_column _year">Release Year</div>
+    
+      </div>
+    </header>
+    <div class="st_table">
+    {recommendedObj.list.map(song => (
+      <div class="st_row">
+        <div class="st_column _rank">{song.track_name}</div>
+        <div class="st_column _name">{song.artist_name}</div>
+        <div class="st_column _surname">{song.genre}</div>
+        <div class="st_column _year">{song.release_date}</div>
+      </div>
+       ))}
+    </div>
+  </div>
+  ))}
+  </main>
 
     
       </div>

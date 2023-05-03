@@ -9,6 +9,8 @@ function SongList() {
   const [recommended,setRecommended] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [songsPerPage, setSongsPerPage] = useState(10); // Change this as needed
+  const [showPlayButtonPressedDiv, setShowPlayButtonPressedDiv] = useState(false);
+  const [showSkipButtonPressedDiv, setShowSkipButtonPressedDiv] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchSongs() {
@@ -75,53 +77,13 @@ function SongList() {
     doFetch();
   }
 
-  // function handleRecommend(){
-  //   console.log(apiUrl)
-  //   fetch('http://674d-34-150-193-144.ngrok.io' + '/train', {
-    
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': '*/*' ,
-  //     'Content-Type': 'text/plain',
-  //   },
-  //   body: JSON.stringify(userHistory),
-
-  // })
-  // .then(response => {
-  //   console.log(response)
-  //   const reader = response.body.getReader();
-  //   const decoder = new TextDecoder();
-
-  //   function readStream() {
-  //     reader.read().then(({ done, value }) => {
-  //       if (done) {
-  //         return;
-  //       }
-
-  //       const text =  decoder.decode(value);
-  //       console.log(text)
-  //       console.log(JSON.parse(text))
-  //       const recommendedView = JSON.parse(text)
-  //       console.log(recommendedView)
-  //       // history.push({
-  //       //   pathname: '/recommended',
-        
-  //       //   state: recommended,
-  //       // });
-  //       navigate('/recommended', {
-  //         state: recommendedView
-  //       });
-
-  //     });
-  //   }
-
-  //   readStream();
-  // })
-  // .catch(err => console.log(err))
-  // }
-  
+ 
 
   async function handlePlay(songId) {
+    setShowPlayButtonPressedDiv(true);
+    setTimeout(() => {
+      setShowPlayButtonPressedDiv(false);
+    }, 1000);
     // play the song with the given id
     const songToUpdate = userHistory.find((song) => song.song_id === songId);
     if(songToUpdate){
@@ -133,9 +95,16 @@ function SongList() {
     }
     await saveUserHistoryToFile(userHistory)
     console.log(userHistory)  
+    // Show the div and set a timeout to hide it after a second
+
   };
 
   async function handleSkip(songId) {
+    // Show the div and set a timeout to hide it after a second
+    setShowSkipButtonPressedDiv(true);
+    setTimeout(() => {
+      setShowSkipButtonPressedDiv(false);
+    }, 1000);
     // skip the song with the given id
     const songToUpdate = userHistory.find((song) => song.song_id === songId);
 
@@ -148,6 +117,7 @@ function SongList() {
     }
     await saveUserHistoryToFile(userHistory)
     console.log(userHistory)  
+
   }
 
   // Get current songs
@@ -198,16 +168,40 @@ function SongList() {
               <td>{song.genre}</td>
               <td>{song.release_date}</td>
               <td>
-                <button onClick={() => handlePlay(song.song_id)}>Play</button>
-                <button onClick={() => handleSkip(song.song_id)}>Skip</button>
+                
+            <button onClick={() => handlePlay(song.song_id)} type="button" class="btn btn--purple">
+              <span class="btn__txt">Play</span>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+            </button>
+                
+                <button onClick={() => handleSkip(song.song_id)} type="button" class="btn btn--yellow">
+              <span class="btn__txt">Skip</span>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+            </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+  
       <div className='recommend'>
       
-            <button onClick={handleRecommend}>Get Recommendations</button>
+            
+            <button onClick={handleRecommend} type="button" class="btn btn--green">
+              <span class="btn__txt">Get Recommendations</span>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+              <i class="btn__bg" aria-hidden="true"></i>
+            </button>
+
       </div>
       
       <nav className='pagination-nav'>
@@ -237,7 +231,20 @@ function SongList() {
           )}
         </ul>
       </nav>
+       
+        {showPlayButtonPressedDiv && (
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', textAlign: 'center', padding: '10px', zIndex: '9999' }}>
+        Played Song!
+        </div>
+        )}
+              {showSkipButtonPressedDiv && (
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white', textAlign: 'center', padding: '10px', zIndex: '9999' }}>
+        Skipped Song!
+        </div>
+        )}
     </div>
+
+          
   );
 }
 

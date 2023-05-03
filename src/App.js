@@ -29,11 +29,12 @@ const Layout = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/SongList">Music</Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/about">User History</Link>
           </li>
+
         </ul>
       </nav>
 
