@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route,Link,Routes,Outlet } from 'react-router-
 import HomeScreen from './Screens/HomeScreen';
 import SongList from './Screens/SongList';
 import RecommendedScreen from './Screens/RecommendedScreen';
+import UserHistoryScreen from './Screens/UserHistoryScreen';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeScreen/>} />
           <Route path="SongList" element={<SongList />} />
-          <Route path="about" element={<About />} />
+          <Route path="history" element={<UserHistoryScreen />} />
           <Route path="recommended" element={<RecommendedScreen/>} />
         </Route>
       </Routes>
@@ -32,7 +33,7 @@ const Layout = () => {
             <Link to="/SongList">Music</Link>
           </li>
           <li>
-            <Link to="/about">User History</Link>
+            <Link to="/history">User History</Link>
           </li>
 
         </ul>
